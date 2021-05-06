@@ -15,10 +15,12 @@ The interface for the functions is the following:
 /fcid/out -> the channel for functions to publish messages. Messages published need to be in the ngsiv2 format.
 
 Here is how a to register a function:
+```
 {
-"id":"fc1",
-"triggers": ["/plop2/fillingLevel"]
+    "id":"fc1",
+    "triggers": ["/plop2/fillingLevel"]
 }
+```
 
 The field trigger is in this format: /<ngsiv2_entity>/<attrs>. Attributes are not mandatory.
 
@@ -31,5 +33,7 @@ $ npm install
 ```console
 $ docker-compose up -d
 ```
+3. The hub can be configured at `mqtt://<ip>'
+4. The hub can be configured at `http://<ip>:1212/admin`
 
 
