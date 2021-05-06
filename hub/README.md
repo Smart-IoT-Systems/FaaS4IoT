@@ -7,7 +7,7 @@ Several functions can register to the hub. The hub handles and manage the commun
 
 The MQTT broker within the hub can be used for local communications between functions, devices, etc.
 
-<img src="../doc/images/hub.png" width="50" height="50">
+<img src="../doc/images/hub.png" width="50%" height="50%">
 
 ## On the relationship between functions and the hub
 The interface for the functions is the following:
