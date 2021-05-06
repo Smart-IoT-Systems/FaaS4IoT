@@ -10,9 +10,11 @@ The MQTT broker within the hub can be used for local communications between func
 ## On the relationship between functions and the hub
 The interface for the functions is the following:
 
-/fcid/in -> message that trigger the functions. Messages can be any context information the function subscribed to. Messages are coming from Orion and are thus in the ngsiv2 format.
+`/fcid/in` 
+> -> message that trigger the functions. Messages can be any context information the function subscribed to. Messages are coming from Orion and are thus in the ngsiv2 format.
 
-/fcid/out -> the channel for functions to publish messages. Messages published need to be in the ngsiv2 format.
+`/fcid/out` 
+> -> the channel for functions to publish messages. Messages published need to be in the ngsiv2 format.
 
 Here is how a to register a function:
 ```
