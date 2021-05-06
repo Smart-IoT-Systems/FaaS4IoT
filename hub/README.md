@@ -35,7 +35,7 @@ $ npm install
 ```console
 $ docker-compose up -d
 ```
-3. The hub can be configured at `mqtt://<ip>`
+3. The broker is accessible at `mqtt://<ip>`
 4. The hub can be configured at `http://<ip>:1212/admin`
 
 
