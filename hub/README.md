@@ -23,8 +23,13 @@ Here is how a to register a function:
 The field trigger is in this format: /<ngsiv2_entity>/<attrs>. Attributes are not mandatory.
 
 ## How to get started
-1. Build the project using npm install
-2. Deploy using docker-compose up -d
-
+1. Build the project using:
+```console
+$ npm install
+```
+2. Deploy using:
+```console
+$ docker-compose up -d
+```
 
 
