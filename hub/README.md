@@ -7,7 +7,7 @@ Several functions can register to the hub. The hub handles and manage the commun
 
 The MQTT broker within the hub can be used for local communications between functions, devices, etc.
 
-![alt text](../doc/images/hub.png "FaaS4IoT Hub")
+![alt text](../doc/images/hub.png "FaaS4IoT Hub"){ width=50% height=50% }
 
 ## On the relationship between functions and the hub
 The interface for the functions is the following:
