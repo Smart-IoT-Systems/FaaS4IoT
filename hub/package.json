@@ -1,0 +1,27 @@
+{
+  "name": "FaaS4IoT-Hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Smart-IoT-Systems/FaaS4IoT.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Smart-IoT-Systems/FaaS4IoT/issues"
+  },
+  "homepage": "https://github.com/Smart-IoT-Systems/FaaS4IoT#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mqtt": "^4.2.6",
+    "ngsijs": "1.4.0-rc.1",
+    "winston": "^3.3.3"
+  }
+}
