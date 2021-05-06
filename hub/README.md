@@ -24,7 +24,7 @@ Here is how a to register a function:
 }
 ```
 
-The field trigger is in this format: /<ngsiv2_entity>/<attrs>. Attributes are not mandatory.
+The field trigger is in this format: `/<ngsiv2_entity>/<attrs>`. Attributes are not mandatory.
 
 ## How to get started
 1. Build the project using:
