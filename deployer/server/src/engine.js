@@ -1,4 +1,21 @@
-var NGSI = require('ngsijs');
+var FunctionRegistry = require('./metamodel');
+var GeneSIS_Connector = require('./genesis-connector');
+
+var engine = (function () {
+    var that = {};
+    that.FunctionRegistry = FunctionRegistry({});
+
+    that.start = function (func) {
+        let conn_genesis = GeneSIS_Connector("127.0.0.1");
+
+    }
+});
+
+
+
+
+
+/*var NGSI = require('ngsijs');
 
 var connection = new NGSI.Connection("http://127.0.0.1:1026");
 connection.v2.listEntities().then((response) => {
@@ -32,7 +49,7 @@ var ctxObj = {
     console.log(JSON.stringify(error));
 });*/
 
-connection.v2.updateEntityAttributes({
+/*connection.v2.updateEntityAttributes({
     "id": "plop2",
     "fillingLevel": {
         "value": 12
@@ -81,3 +98,4 @@ var subscription = {
 }).catch((error) => {
     console.log(JSON.stringify(error));
 });*/
+
