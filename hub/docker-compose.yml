@@ -13,5 +13,15 @@ services:
         build: .
         hostname: bridge
         container_name: bridge
+        environment:
+            - GW_NAME=tmp1
         ports:
             - "1212:1212"
+
+    genesis-light:
+        image: nicolasferry/genesis-light
+        hostname: genesis-light
+        container_name: genesis-light
+        ports:
+            - "8880:8880"
+            - "8000:8000"
