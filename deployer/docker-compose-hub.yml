@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+    mosquitto:
+        image: eclipse-mosquitto
+        hostname: mosquitto
+        container_name: mosquitto
+        ports:
+            - "9001:9001"
+            - "1883:1883"
+        
+    bridge:
+        build: .
+        hostname: bridge
+        container_name: bridge
+        ports:
+            - "1212:1212"
+
+    genesis-light:
+        image: nicolasferry/genesis-light
+        hostname: genesis-light
+        container_name: genesis-light
+        ports:
+            - "8880:8880"
+            - "8000:8000"
