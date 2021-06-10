@@ -1,5 +1,7 @@
 
-const logger = require('./logger.js');
+const logger = require('../logger.js');
+const fetch = require('node-fetch');
+var Docker = require('dockerode');
 
 const GeneSIS_Connector = function (endpoint) {
     var that = {};
@@ -7,10 +9,19 @@ const GeneSIS_Connector = function (endpoint) {
     that.deployment_model = {};
 
     that.loadFromGeneSIS = function () {
-        fetch("/genesis/model_ui")
+        fetch(that.endpoint + "/genesis/model_ui")
             .then(response => response.json())
             .then(data => {
                 that.deployment_model = data.dm;
+            });
+    };
+
+    that.loadFromGeneSISWithoutUI = async function () {
+        return await fetch(that.endpoint + "/genesis/model")
+            .then(response => response.json())
+            .then(data => {
+                that.deployment_model = data;
+                return data;
             });
     };
 
@@ -33,8 +44,8 @@ const GeneSIS_Connector = function (endpoint) {
 
     };
 
-    that.deploy = function (model) {
-        fetch('/genesis/deploy', {
+    that.deploy = async function (model) {
+        return await fetch(that.endpoint + '/genesis/deploy', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -44,7 +55,7 @@ const GeneSIS_Connector = function (endpoint) {
             body: JSON.stringify(model)
         }).then(response => response.json())
             .then(response => {
-                console.log(JSON.stringify(response));
+                console.log("GeneSIS deployment status: " + JSON.stringify(response));
             });
     };
 
@@ -64,17 +75,17 @@ const GeneSIS_Connector = function (endpoint) {
 
     that.executeCommand = async function (dockerHost, containerID, commandSpecs = {}) {
         const DEFAULT_SPECS = {
-            Cmd: ["/bin/bash", "-c", "ls  -l"],
+            Cmd: ["/bin/sh", "-c", "ls  -l"],
             AttachStdout: true,
             AttachStderr: true,
             Tty: true
         };
 
         commandSpecs = Object.assign({}, DEFAULT_SPECS, commandSpecs);
-
         await that.resetDockerHost(dockerHost);
         const container = that.docker.getContainer(containerID);
         const execution = await container.exec(commandSpecs);
+
         const stream = await execution.start();
 
         stream.pipe(process.stdout, { end: true });
@@ -101,6 +112,16 @@ const GeneSIS_Connector = function (endpoint) {
         await that.docker.ping();
     };
 
+    that.endOf = function (stream) {
+        return new Promise((resolve, reject) => {
+            stream.on('error', () => reject());
+            stream.on('close', () => resolve());
+            stream.on('end', () => resolve());
+            stream.on('finish', () => resolve());
+        });
+    }
+
+    return that;
 };
 
 module.exports = GeneSIS_Connector;

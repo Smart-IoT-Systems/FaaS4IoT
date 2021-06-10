@@ -27,11 +27,11 @@ services:
         ports:
             - "8080:8080"
 
-    genesis-light:
-        build: nicolasferry/genesis-light
-        hostname: genesis-light
-        container_name: genesis-light
-        ports:
-            - "8880:8880"
-            - "8000:8000"
-            - "9001:9001"
+    #genesis-light:
+    #    image: nicolasferry/genesis-light
+    #    hostname: genesis-light
+    #    container_name: genesis-light
+    #    ports:
+    #        - "8880:8880"
+    #        - "8000:8000"
+    #        - "9001:9001"

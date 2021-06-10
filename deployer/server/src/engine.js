@@ -1,17 +1,162 @@
-var FunctionRegistry = require('./metamodel');
-var GeneSIS_Connector = require('./genesis-connector');
+var mm = require('./metamodel');
+var GeneSIS_Connector = require('./connectors/genesis-connector');
+var fs = require('fs');
+const NGSI = require('ngsijs');
+const logger = require('./logger.js');
+var Docker = require('dockerode');
+var DockerodeCompose = require('dockerode-compose');
+var temp = require("temp");
+var tar = require("tar");
 
-var engine = (function () {
+const urlOrion = process.env.ORION || "http://192.168.1.41";
+
+var engine = function () {
     var that = {};
-    that.FunctionRegistry = FunctionRegistry({});
+    that.FunctionRegistry = mm.FunctionRegistry({});
 
-    that.start = function (func) {
-        let conn_genesis = GeneSIS_Connector("127.0.0.1");
 
+    /**
+     * Used to deploy a function
+     * @param {*} func The function to be deployed. Should be a JSON object
+     */
+    that.deploy = async function (func, idGateway) {
+        // We register the function in the registry
+        that.FunctionRegistry.functions.push(func);
+
+        // We deploy GeneSIS on the selected gateway if needed
+        let conn_ngsi = new NGSI.Connection(urlOrion + ":1026");
+        conn_ngsi.v2.getEntity(idGateway).then(
+            async (response) => {
+                let gateway = response.entity;
+                if (!gateway.equipped.value) {
+                    // Deploy GeneSIS and Hub
+                    let conn_docker = new Docker({
+                        host: urlOrion,
+                        port: process.env.DOCKER_PORT || 2375,
+                        protocol: 'http'
+                    });
+                    let compose = new DockerodeCompose(conn_docker, './docker-compose-hub.yml', 'deployer');
+                    await compose.pull();
+                    let state = await compose.up();
+                    logger.log("info", "Gateway equipped: " + state);
+
+                    // Change status
+                    conn_ngsi.v2.updateEntityAttributes({
+                        "id": "sensor",
+                        "equipped": {
+                            "value": true
+                        }
+                    }).then(
+                        (response) => {
+                            logger.log('info', "Gateway status changed to equipped")
+                        }, (error) => {
+                            logger.log('error', error);
+                        }
+                    );
+                }
+            }, (error) => {
+                logger.log('error', error);
+            });
+
+        // We prepare the software stack
+        let conn_genesis = GeneSIS_Connector(urlOrion + ":8000");
+        let model = {};
+        if (fs.existsSync(func.runtime)) {
+            let tmp = fs.readFileSync(func.runtime);
+            model = JSON.parse(tmp);
+        } else {
+            model = func.runtime;
+        }
+        await conn_genesis.deploy(model);
+
+        // We add the function
+        let src = "";
+        if (!fs.existsSync(func.src)) {
+            src = func.src;
+        } else {
+            src = fs.readFileSync(func.src);
+        }
+        let archivePath = await that.archiveFunction(src);
+
+        // Need to retrieve the id of the newly created container
+        let dm = await conn_genesis.loadFromGeneSISWithoutUI();
+        let container_id;
+        let docker_ip;
+        let docker_port;
+        let func_command;
+        for (let comp of dm.components) {
+            if (comp.function_host != undefined && comp.function_host) {
+                container_id = comp.container_id;
+                func_command = comp.properties[0].function_command;
+            }
+            if (comp._type === "/infra/docker_host") { // This assumes there is only one host in a runtime !
+                docker_ip = comp.ip;
+                docker_port = comp.port[0];
+            }
+        }
+
+        if (container_id !== undefined && docker_ip !== undefined && docker_port !== undefined) {
+            conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/"); // Fix docker_host and container_id
+
+            // We start it
+            conn_genesis.executeCommand({ ip: docker_ip, port: docker_port }, container_id, {
+                Cmd: [func_command, "/function"],
+                AttachStdout: true,
+                AttachStderr: true,
+                Tty: true
+            });
+        } else {
+            await conn_genesis.deploy({});
+            logger.log("error", "Could not deploy runtime. Thereby, your function has not been deployed.");
+        }
     }
-});
+
+    /**
+     * Used to terminate a function
+     * @param {*} id ID of the function to be removed
+     */
+    that.removeFunction = function (id) {
+
+    };
 
 
+
+    that.archiveFunction = async function (func, options = {}) {
+        const OPTION_DEFAULTS = {
+            scriptName: "function",
+            archiveName: "function.tar.gz",
+            prefix: "faas4IoT"
+        };
+        options = Object.assign({}, OPTION_DEFAULTS, options);
+
+        try {
+            const path = await temp.mkdir(options.prefix);
+
+            // Dump the healthcheck code into a file
+            const script = path + "/" + options.scriptName;
+            fs.writeFileSync(script, func);
+
+            // Create a tarball including the script file
+            const archivePath = `${path}/${options.archiveName}`;
+            await tar.c({
+                gzip: true,
+                file: archivePath,
+                cwd: path
+            },
+                [options.scriptName]);
+
+            logger.log('info', `Archive ready at '${path}/${options.archiveName}'`);
+            return archivePath;
+
+        } catch (error) {
+            logger.log("error", "Unable to write the function on disk! " + error);
+        }
+    };
+
+    return that;
+};
+
+module.exports = engine;
 
 
 

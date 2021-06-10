@@ -28,6 +28,12 @@
     "mqtt": "^4.2.6",
     "nodemon": "^2.0.7",
     "swagger-tools": "^0.10.4",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "node-fetch": "^2.6.1",
+    "dockerode": "^3.2.1",
+    "dockerode-compose": "^1.2.1",
+    "ngsijs": "^1.4.0-rc.1",
+    "temp": "^0.9.4",
+    "tar": "^6.1.0"
   }
 }

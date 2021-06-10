@@ -3,4 +3,4 @@ RUN apk add --update nodejs nodejs-npm
 
 WORKDIR /deployer
 ADD . /deployer
-ENTRYPOINT [ "npm", "start"]
+ENTRYPOINT [ "npm", "run", "server"]

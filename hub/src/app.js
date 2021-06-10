@@ -6,7 +6,7 @@ var uuidv4 = require('uuid/v4');
 
 const app = express();
 var b;
-const urlOrion = process.env.ORION || "http://192.168.1.41:1026";
+const urlOrion = process.env.ORION_URL || "http://192.168.1.41:1026";
 const name = process.env.GW_NAME || "gateway-" + uuidv4();
 
 app.use(bodyParser.json({ limit: '50mb' }));
