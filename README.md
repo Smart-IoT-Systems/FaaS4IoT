@@ -2,5 +2,5 @@
 
 ## Overview and Architecture
 
-## How to get Started
+## How to get started
 
