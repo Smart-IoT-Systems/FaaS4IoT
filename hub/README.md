@@ -28,7 +28,7 @@ To trigger a function, one may send, using an HTTP POST request, a message simil
 
 The field trigger is in this format: `/<ngsiv2_entity>/<attrs>`. Attributes are not mandatory.
 
-The enpoint for the request should be the following: `http://<ip_gateway>:1212/admin
+The enpoint for the request should be the following: `http://<ip_gateway>:1212/admin`
 
 ## How to get started
 1. Build the project using:
