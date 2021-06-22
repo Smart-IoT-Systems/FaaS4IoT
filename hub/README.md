@@ -18,7 +18,7 @@ The interface for the functions is the following:
 `/fcid/out` 
 > -> the channel for functions to publish messages. Messages published need to be in the ngsiv2 format.
 
-Here is how a to register a function:
+To trigger a function, one may send, using an HTTP POST request, a message similar to the following:
 ```
 {
     "id":"fc1",
@@ -27,6 +27,8 @@ Here is how a to register a function:
 ```
 
 The field trigger is in this format: `/<ngsiv2_entity>/<attrs>`. Attributes are not mandatory.
+
+The enpoint for the request should be the following: `http://<ip_gateway>:1212/admin
 
 ## How to get started
 1. Build the project using:
