@@ -7,8 +7,9 @@ var Docker = require('dockerode');
 var DockerodeCompose = require('dockerode-compose');
 var temp = require("temp");
 var tar = require("tar");
+const fetch = require('node-fetch');
 
-const urlOrion = process.env.ORION || "http://192.168.1.41";
+const urlGeneSIS = process.env.GENESIS || "http://192.168.1.41";
 
 var engine = function () {
     var that = {};
@@ -31,15 +32,17 @@ var engine = function () {
 
         // We add the function
         let src = "";
-        if (!fs.existsSync(func.src)) {
+        if (fs.existsSync(func.src)) {
             src = func.src;
         } else {
-            src = fs.readFileSync(func.src);
+            let tempName = await temp.path();
+            fs.writeFileSync(tempName, func.src);
+            src = tempName;
         }
         let archivePath = await that.archiveFunction(src);
 
         // Need to retrieve the id of the newly created container
-        let conn_genesis = GeneSIS_Connector(urlOrion + ":8000");
+        let conn_genesis = GeneSIS_Connector(urlGeneSIS + ":8000"); //IP should come from the repository
         let dm = await conn_genesis.loadFromGeneSISWithoutUI();
         let container_id;
         let docker_ip;
@@ -59,13 +62,17 @@ var engine = function () {
         if (container_id !== undefined && docker_ip !== undefined && docker_port !== undefined) {
             conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/");
 
+            //Register the function in the hub
+            that.registerInHub(func);
+
             // We start it
             conn_genesis.executeCommand({ ip: docker_ip, port: docker_port }, container_id, {
-                Cmd: [func_command, "/function"],
+                Cmd: [func_command, func.src + "/main.js"],
                 AttachStdout: true,
                 AttachStderr: true,
                 Tty: true
             });
+            logger.log("info", "Function is deployed and started! Good job :)");
         } else {
             await conn_genesis.deploy({});
             logger.log("error", "Could not deploy runtime. Thereby, your function has not been deployed.");
@@ -92,7 +99,7 @@ var engine = function () {
         } else {
             model = func.runtime;
         }
-        let conn_genesis = GeneSIS_Connector(urlOrion + ":8000");
+        let conn_genesis = GeneSIS_Connector(urlGeneSIS + ":8000");
         await conn_genesis.deploy(model);
     }
 
@@ -101,14 +108,14 @@ var engine = function () {
      * @param {*} idGateway 
      */
     that.deployGenesis = async function (idGateway) {
-        let conn_ngsi = new NGSI.Connection(urlOrion + ":1026");
+        let conn_ngsi = new NGSI.Connection(urlGeneSIS + ":1026");
         conn_ngsi.v2.getEntity(idGateway).then(
             async (response) => {
                 let gateway = response.entity;
                 if (!gateway.equipped.value) {
                     // Deploy GeneSIS and Hub
                     let conn_docker = new Docker({
-                        host: urlOrion,
+                        host: urlGeneSIS,
                         port: process.env.DOCKER_PORT || 2375,
                         protocol: 'http'
                     });
@@ -137,7 +144,7 @@ var engine = function () {
     }
 
 
-    that.archiveFunction = async function (func, options = {}) {
+    that.archiveFunction = async function (src, options = {}) {
         const OPTION_DEFAULTS = {
             scriptName: "function",
             archiveName: "function.tar.gz",
@@ -149,8 +156,8 @@ var engine = function () {
             const path = await temp.mkdir(options.prefix);
 
             // Dump the healthcheck code into a file
-            const script = path + "/" + options.scriptName;
-            fs.writeFileSync(script, func);
+            //const script = path + "/" + options.scriptName;
+            //fs.writeFileSync(script, func);
 
             // Create a tarball including the script file
             const archivePath = `${path}/${options.archiveName}`;
@@ -159,7 +166,7 @@ var engine = function () {
                 file: archivePath,
                 cwd: path
             },
-                [options.scriptName]);
+                [src]);
 
             logger.log('info', `Archive ready at '${path}/${options.archiveName}'`);
             return archivePath;
@@ -167,6 +174,26 @@ var engine = function () {
         } catch (error) {
             logger.log("error", "Unable to write the function on disk! " + error);
         }
+    };
+
+    that.registerInHub = async function (func) {
+        var content = {
+            "id": func.id,
+            "triggers": func.triggers
+        };
+
+        return await fetch(urlGeneSIS + ':1212/admin', { //URL to be fixed, this should be dynamic
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(content)
+        }).then(response => response.json())
+            .then(response => {
+                console.log("Hub registration status: " + JSON.stringify(response));
+            });
     };
 
     return that;

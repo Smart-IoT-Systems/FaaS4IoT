@@ -97,10 +97,10 @@ const GeneSIS_Connector = function (endpoint) {
             await that.resetDockerHost(dockerHost);
             const container = that.docker.getContainer(containerID);
             const response = await container.putArchive(archive, { path: path });
-            logger.info(`File '${archive}' uploaded on container '${containerID}'`);
+            logger.info(`File '${archive}' uploaded on container '${containerID}' : '${JSON.stringify(response)}'`);
 
         } catch (error) {
-            logger.log('error', `Cannot upload '${archive}' on container '${containerID}':  '${error}' `);
+            logger.log('error', `Cannot upload '${archive}' on container '${containerID}' with error '${JSON.stringify(error)}' `);
         }
     };
 

@@ -15,6 +15,7 @@ services:
         container_name: bridge
         environment:
             - GW_NAME=tmp1
+            - ORION_URL=http://138.96.220.155:1026
         ports:
             - "1212:1212"
 

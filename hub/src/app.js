@@ -54,10 +54,18 @@ app.listen(1212, '0.0.0.0', async function () {
         logger.log('info', "Function registered " + req.body);
         let id = req.body.id;
         let ctx = req.body.triggers;
-        b = new bridge(urlOrion, app, ctx, id);
-        await b.subscribeAllContexts();
-        b.publishData();
-        res.end();
+        try {
+            b = new bridge(urlOrion, app, ctx, id);
+            console.log("Here we go!");
+            await b.subscribeAllContexts();
+            console.log("Here we go!");
+            b.publishData();
+            console.log("Here we go!");
+            res.end("{}");
+        } catch (error) {
+            logger.log("error", "could not register function " + JSON.stringify(error));
+            res.end("{ status: 'error' }");
+        }
     });
 });
 

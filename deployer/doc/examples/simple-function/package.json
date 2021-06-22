@@ -1,0 +1,9 @@
+{
+  "name": "simple-function",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "mqtt": "4.2.8"
+  }
+}

@@ -26,6 +26,8 @@ services:
         container_name: deployer
         ports:
             - "8080:8080"
+        environment:
+            - GENESIS=http://138.96.220.155
 
     #genesis-light:
     #    image: nicolasferry/genesis-light
