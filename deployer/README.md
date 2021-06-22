@@ -1,5 +1,7 @@
 # FaaS4IoT
 
+## What is it?
+
 The FaaS4IoT deployer is the engine responsible for deploying your function in production. This includes:
 1. Building your function
 2. Deploying your function
