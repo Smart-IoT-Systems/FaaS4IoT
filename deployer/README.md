@@ -57,10 +57,10 @@ docker run -p 8080 <your_name>:deployer
 ### Process to use Faas4IoT
 
 Starting from scratch, the normal process for using FaaS4IoT is composed of the following steps:
-1. Start the FaaS4IoT deployer and the Orion Context Broker (cf. sections above)
-2. Start the FaaS4IoT on at least one of your function hosting device. The hub will automatically register de device in the Orion Broker.
+1. Start the FaaS4IoT deployer and the Orion Context Broker (cf. sections above).
+2. Start the FaaS4IoT on at least one of your function hosting device. The hub will automatically register de device in the Orion Broker (see more details [here](../hub)).
 3. Write your function. Typically a set of source files together with libraries.
-4. Use the web interface or the REST API of the FaaS4IoT deployer to deploy your function. You need to provide: (i) the source of you function, (ii) the event used by your function, (iii) an id for your function, (iv) the runtime required by your function. The deployer will automatically deploy the runtime on the target device, create a docker image for the function, and deploy it on top of the runtime. More details in the next section.
+4. Use the web interface or the REST API of the FaaS4IoT deployer to deploy your function. You need to provide: (i) the source of your function (directly a folder on the machine running FaaS4IoT or an archive), (ii) the event used by your function, (iii) an id for your function, (iv) the runtime required by your function. The deployer will automatically deploy the runtime on the target device, create a docker image for the function, and deploy it on top of the runtime. More details in the next section.
 
 
 ### How to use FaaS4IoT
