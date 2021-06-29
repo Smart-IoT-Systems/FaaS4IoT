@@ -7,6 +7,8 @@ The FaaS4IoT deployer is the engine responsible for deploying your function in p
 2. Deploying your function
 3. Registering and configuring your function
 
+---
+
 ## Getting started
 
 FaaS4IoT requires the following components to be executed:
@@ -16,7 +18,7 @@ FaaS4IoT requires the following components to be executed:
 > 4. NPM (Latest LTS Version, recommended)
 
 In addition, at least: 
-* One host (e.g., a gateway or a VM) should be available for deployment before you try to deploy a function. This host should run the FaaS4IoT hub. Details on how to install the FaaS4IoT hub can be found here.
+* One host (e.g., a gateway or a VM) should be available for deployment before you try to deploy a function. This host should run the FaaS4IoT hub. Details on how to install the FaaS4IoT hub can be found [here](../hub).
 * One instance of the Orion Context broker should be running and available remotely.
 
 ### Start FaaS4IoT using Docker-compose (easiest)
@@ -34,6 +36,9 @@ docker-compose up
 FaaS4IoT is available, pre-packaged with all its dependencies, as a Docker image. Provided you have Docker up and running, you can proceed as follows:
 1. Install FIWARE Orion and MongoDB (documentation available here) with the ports 1026 (Orion) and 27017 (Mongo) open.
 2. On the machine that will run FaaS4IoT, export an environment variable named urlORION whose value is the IP address of your Orion broker.
+```console
+export urlORION=http://192.168.1.2
+```
 3. In the FaaS4IoT/deployer folder, build the project by running the following command:
 ```console
 npm install
@@ -49,6 +54,10 @@ docker run -p 8080 <your_name>:deployer
 
 ## Process to use Faas4IoT
 
+---
+
 ## A small example
+
+---
 
 ## API description
