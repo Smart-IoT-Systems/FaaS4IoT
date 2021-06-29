@@ -21,7 +21,9 @@ In addition, at least:
 * One host (e.g., a gateway or a VM) should be available for deployment before you try to deploy a function. This host should run the FaaS4IoT hub. Details on how to install the FaaS4IoT hub can be found [here](../hub).
 * One instance of the Orion Context broker should be running and available remotely.
 
-### Start FaaS4IoT using Docker-compose (easiest)
+### How to start FaaS4IoT
+
+#### Start FaaS4IoT using Docker-compose (easiest)
 1. In the FaaS4IoT/deployer folder, build the project by running the following command:
 ```console
 npm install
@@ -31,7 +33,7 @@ npm install
 docker-compose up
 ```
 
-### Start FaaS4IoT using Docker
+#### Start FaaS4IoT using Docker
 
 FaaS4IoT is available, pre-packaged with all its dependencies, as a Docker image. Provided you have Docker up and running, you can proceed as follows:
 1. Install FIWARE Orion and MongoDB (documentation available here) with the ports 1026 (Orion) and 27017 (Mongo) open.
@@ -50,9 +52,20 @@ docker build . -t <your_name>:deployer
 5. From now, you can run the FaaS4IoT deployer using the following command:
 ```console
 docker run -p 8080 <your_name>:deployer
-````
+```
 
-## Process to use Faas4IoT
+### Process to use Faas4IoT
+
+Starting from scratch, the normal process for using FaaS4IoT is composed of the following steps:
+1. Start the FaaS4IoT deployer and the Orion Context Broker (cf. sections above)
+2. Start the FaaS4IoT on at least one of your function hosting device. The hub will automatically register de device in the Orion Broker.
+3. Write your function. Typically a set of source files together with libraries.
+4. Use the web interface or the REST API of the FaaS4IoT deployer to deploy your function. You need to provide: (i) the source of you function, (ii) the event used by your function, (iii) an id for your function, (iv) the runtime required by your function. The deployer will automatically deploy the runtime on the target device, create a docker image for the function, and deploy it on top of the runtime. More details in the next section.
+
+
+### How to use FaaS4IoT
+
+
 
 ---
 
