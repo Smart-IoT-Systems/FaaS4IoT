@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon server/index.js",
-    "client": "cd client && npm run start",
+    "client": "cd client && npm start",
     "iall": "npm i && cd client && npm i",
-    "start": "npm run server & npm run client",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "dockerode-compose": "^1.2.1",
     "ngsijs": "^1.4.0-rc.1",
     "temp": "^0.9.4",
-    "tar": "^6.1.0"
+    "tar": "^6.1.0",
+    "concurrently": "^5.1.0"
   }
 }

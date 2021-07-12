@@ -10,6 +10,7 @@ var tar = require("tar");
 const fetch = require('node-fetch');
 
 const urlGeneSIS = process.env.GENESIS || "http://192.168.1.41";
+const urlOrion = process.env.ORION || "http://192.168.1.41";
 
 var engine = function () {
     var that = {};
@@ -108,7 +109,7 @@ var engine = function () {
      * @param {*} idGateway 
      */
     that.deployGenesis = async function (idGateway) {
-        let conn_ngsi = new NGSI.Connection(urlGeneSIS + ":1026");
+        let conn_ngsi = new NGSI.Connection(urlOrion + ":1026");
         conn_ngsi.v2.getEntity(idGateway).then(
             async (response) => {
                 let gateway = response.entity;

@@ -26,8 +26,9 @@ services:
         container_name: deployer
         ports:
             - "8080:8080"
+            - "3000:3000"
         environment:
-            - GENESIS=http://138.96.220.155
+            - GENESIS=http://192.168.1.41
 
     #genesis-light:
     #    image: nicolasferry/genesis-light
