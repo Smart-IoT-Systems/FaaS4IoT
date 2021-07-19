@@ -3,7 +3,7 @@ const express = require('express');
 const logger = require('./logger.js');
 const bodyParser = require('body-parser');
 var uuidv4 = require('uuid/v4');
-const getDockerHost = require('get-docker-host');
+var ip = require('ip');
 
 const app = express();
 var b;
@@ -12,6 +12,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const urlOrion = process.env.ORION_URL || "http://192.168.1.43"
+const name = process.env.GW_NAME || "gateway-" + uuidv4();
 
 checkDocker = () => {
     return new Promise((resolve, reject) => {
@@ -27,8 +28,7 @@ checkDocker = () => {
 
 app.listen(1212, '0.0.0.0', async function () {
     logger.log('info', 'Engine API started on 1212');
-    const urlGateway = await checkDocker();
-    const name = process.env.GW_NAME || "gateway-" + uuidv4();
+    const urlGateway = ip.address();
     /**
      * The gateway register itself in Orion
      */
