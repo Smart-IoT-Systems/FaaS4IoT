@@ -25,7 +25,9 @@ app.listen(1212, '0.0.0.0', async function () {
         "equipped": {
             "value": true
         },
-        "ip_address": urlOrion,
+        "ip_address": {
+            "value": urlOrion,
+        },
         "location": {
             "type": "GeoProperty",
             "value": {
