@@ -16,6 +16,7 @@ const urlOrion = process.env.ORION_URL || "http://192.168.1.43"
 app.listen(1212, '0.0.0.0', async function () {
     logger.log('info', 'Engine API started on 1212');
     const urlGateway = await dockerIpTools.getHostIp();
+    console.log(urlGateway);
     const name = process.env.GW_NAME || "gateway-" + uuidv4();
     /**
      * The gateway register itself in Orion
