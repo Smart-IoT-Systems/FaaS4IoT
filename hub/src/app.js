@@ -7,16 +7,14 @@ const dockerIpTools = require("docker-ip-get");
 
 const app = express();
 var b;
-var ip_host = await dockerIpTools.getHostIp();
-const urlOrion = process.env.ORION_URL || ip_host;
-const name = process.env.GW_NAME || "gateway-" + uuidv4();
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.listen(1212, '0.0.0.0', async function () {
     logger.log('info', 'Engine API started on 1212');
-
+    const urlOrion = process.env.ORION_URL || await dockerIpTools.getHostIp();
+    const name = process.env.GW_NAME || "gateway-" + uuidv4();
     /**
      * The gateway register itself in Orion
      */
