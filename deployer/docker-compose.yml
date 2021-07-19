@@ -1,7 +1,7 @@
 version: "3.3"
 services:
     orion:
-      image: fiware/orion-ld
+      image: fiware/orion:3.1.0
       hostname: orion
       container_name: fiware-orion
       depends_on:
@@ -29,6 +29,16 @@ services:
             - "3000:3000"
         environment:
             - GENESIS=http://192.168.1.41
+
+
+    reverse:
+        image: nicolasferry/reverse-orion
+        hostname: reverse
+        container_name: reverse
+        depends_on:
+            - orion
+        ports:
+            - "80:80"
 
     #genesis-light:
     #    image: nicolasferry/genesis-light

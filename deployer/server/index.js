@@ -7,6 +7,17 @@ const logger = require('./src/logger.js');
 const swaggerTools = require('swagger-tools');
 const swaggerDoc = require('./swagger/swagger.json');
 var deployer = require('./src/engine.js');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: './uploads',
+    filename: function (req, file, cb) {
+        const name = file.originalname.split(' ').join('_');
+        cb(null, name);
+    }
+});
+
+const upload = new multer({ storage: storage });
 
 const port = process.env.PORT || 8080;
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -19,9 +30,16 @@ app.use(function (req, res, next) {
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     // Pass to next layer of middleware
-    next();
+    // intercept OPTIONS method
+    if ('OPTIONS' === req.method) {
+        res.status(200).end();  // For OPTIONS requests, a 200 response is sent immediately
+    } else {
+        next();  // Continues normal workflow
+    }
 });
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+
+
 
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     app.use(middleware.swaggerUi());
@@ -30,6 +48,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
     });
 });
 
+
+
+var engine = deployer();
 logger.log('info', 'Engine started!');
 
 /**
@@ -52,13 +73,26 @@ logger.log('info', 'Engine started!');
 app.post("/deploy", async (req, res) => {
     logger.log('info', "Function registered " + req.body);
     let fc = req.body;
-    let engine = deployer();
-    engine.deploy(fc, "tmp1");
+    engine.deploy(fc, fc.hub);
     res.end();
 });
 
 // Send the server logs
 app.get("/logs", getLogs);
+
+app.get("/functionResources", engine.getFunctionResources);
+
+app.post("/functionResources", engine.addFunctionResources);
+
+app.delete("/functionResources", engine.removeFunctionResource);
+
+app.get("/runtimes", engine.getRuntimes);
+
+app.post("/runtimes", engine.addRuntimes);
+
+app.delete("/runtime", engine.removeRuntime);
+
+app.post('/archive', upload.any(), engine.addFunctionResources);
 
 function getLogs(req, res) {
     var contents = fs.readFileSync(__dirname + '/faas4iot.log', 'utf8');

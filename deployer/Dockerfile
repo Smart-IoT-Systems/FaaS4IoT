@@ -2,4 +2,4 @@ FROM node:slim
 
 WORKDIR /deployer
 ADD . /deployer
-ENTRYPOINT [ "npm", "start"]
+ENTRYPOINT [ "npm", "run", "server"]

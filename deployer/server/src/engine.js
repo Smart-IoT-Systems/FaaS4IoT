@@ -9,38 +9,49 @@ var temp = require("temp");
 var tar = require("tar");
 const fetch = require('node-fetch');
 
-const urlGeneSIS = process.env.GENESIS || "http://192.168.1.41";
-const urlOrion = process.env.ORION || "http://192.168.1.41";
+var urlGeneSIS = process.env.GENESIS || "http://192.168.1.40";
+var urlOrion = process.env.ORION || "http://192.168.1.43";
 
 var engine = function () {
     var that = {};
     that.FunctionRegistry = mm.FunctionRegistry({});
+    that.FunctionResourceRegistry = mm.FunctionResourceRegistry({});
+    that.RuntimeRegistry = mm.RuntimeRegistry({});
 
 
     /**
      * Used to deploy a function
      * @param {*} func The function to be deployed. Should be a JSON object
      */
-    that.deploy = async function (func, idGateway) {
+    that.deploy = async function (func, hub) {
+        let idGateway = hub.id;
+        let ip_gateway = hub.ip_address.value.split(":1026")[0];
+        urlGeneSIS = ip_gateway;
+
         // We register the function in the registry
-        that.FunctionRegistry.functions.push(func);
+        let f = mm.Function(func);
+        that.FunctionRegistry.functions.push(f);
 
         // We deploy GeneSIS on the selected gateway if needed
         await that.deployGenesis(idGateway);
 
         // We prepare the software stack
-        await that.deploySoftwareStack(func);
+        await that.deploySoftwareStack(f);
 
         // We add the function
         let src = "";
-        if (fs.existsSync(func.src)) {
-            src = func.src;
+        let archivePath = ""
+        console.log(JSON.stringify(f.functionResource));
+        if (fs.existsSync(f.functionResource)) {
+            archivePath = f.functionResource;
+            logger.log('info', 'Found function source');
         } else {
             let tempName = await temp.path();
-            fs.writeFileSync(tempName, func.src);
+            fs.writeFileSync(tempName, f.functionResource);
             src = tempName;
+            archivePath = await that.archiveFunction(src);
         }
-        let archivePath = await that.archiveFunction(src);
+
 
         // Need to retrieve the id of the newly created container
         let conn_genesis = GeneSIS_Connector(urlGeneSIS + ":8000"); //IP should come from the repository
@@ -61,6 +72,7 @@ var engine = function () {
         }
 
         if (container_id !== undefined && docker_ip !== undefined && docker_port !== undefined) {
+            //We upload the archive in the container
             conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/");
 
             //Register the function in the hub
@@ -68,7 +80,7 @@ var engine = function () {
 
             // We start it
             conn_genesis.executeCommand({ ip: docker_ip, port: docker_port }, container_id, {
-                Cmd: [func_command, func.src + "/main.js"],
+                Cmd: [func_command, f.functionResource + "/main.js"],
                 AttachStdout: true,
                 AttachStderr: true,
                 Tty: true
@@ -100,6 +112,7 @@ var engine = function () {
         } else {
             model = func.runtime;
         }
+        console.log(urlGeneSIS);
         let conn_genesis = GeneSIS_Connector(urlGeneSIS + ":8000");
         await conn_genesis.deploy(model);
     }
@@ -196,6 +209,68 @@ var engine = function () {
                 console.log("Hub registration status: " + JSON.stringify(response));
             });
     };
+
+    that.getFunctionResources = async function (req, res) {
+        res.end(JSON.stringify(that.FunctionResourceRegistry));
+    };
+
+    that.addFunctionResources = async function (req, res) {
+        let input = JSON.parse(req.body.metadata);
+        logger.log("info", "Received new runtime: " + input.id);
+        input.path = req.files[0].path;
+        console.log(JSON.stringify(req.files));
+        if (input.id !== "" && input.id !== undefined) {
+            that.FunctionResourceRegistry.FunctionResources.push(input);
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end();
+        } else {
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end();
+        }
+    };
+
+    that.removeFunctionResource = async function (req, res) {
+        let input = req.body;
+        let r = that.FunctionResourceRegistry.removeFunctionResource(input.id);
+        logger.log("info", "Runtime to be removed: " + input.id + " " + r);
+        if (r) {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end();
+        } else {
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end();
+        }
+    }
+
+    that.getRuntimes = async function (req, res) {
+        res.end(JSON.stringify(that.RuntimeRegistry));
+    };
+
+    that.addRuntimes = async function (req, res) {
+        let input = req.body;
+        logger.log("info", "Received new runtime: " + input.id);
+        if (input.id !== "" && input.id !== undefined) {
+            that.RuntimeRegistry.runtimes.push(input);
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end();
+        } else {
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end();
+        }
+    };
+
+    that.removeRuntime = async function (req, res) {
+        let input = req.body;
+        let r = that.RuntimeRegistry.removeRuntimes(input.id);
+        logger.log("info", "Runtime to be removed: " + input.id + " " + r);
+        if (r) {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end();
+        } else {
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end();
+        }
+    }
 
     return that;
 };
