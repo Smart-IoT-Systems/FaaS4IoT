@@ -3,10 +3,11 @@ const express = require('express');
 const logger = require('./logger.js');
 const bodyParser = require('body-parser');
 var uuidv4 = require('uuid/v4');
+const dockerIpTools = require("docker-ip-get");
 
 const app = express();
 var b;
-const urlOrion = process.env.ORION_URL || "http://192.168.1.41:1026";
+const urlOrion = process.env.ORION_URL || await dockerIpTools.getHostIp();
 const name = process.env.GW_NAME || "gateway-" + uuidv4();
 
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -24,6 +25,7 @@ app.listen(1212, '0.0.0.0', async function () {
         "equipped": {
             "value": true
         },
+        "ip_address": urlOrion,
         "location": {
             "type": "GeoProperty",
             "value": {
