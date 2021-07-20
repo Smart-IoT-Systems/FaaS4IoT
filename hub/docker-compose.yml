@@ -16,7 +16,7 @@ services:
         environment:
             - GW_NAME=tmp1
             - ORION_URL=http://192.168.1.43:1026
-            - GATEWAY_URL=http://192.168.1.43
+            - GATEWAY_URL=http://192.168.1.40
         ports:
             - "1212:1212"
 
