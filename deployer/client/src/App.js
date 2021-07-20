@@ -81,7 +81,7 @@ class App extends React.Component {
               <Menu
                 mode="inline"
                 defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub2']}
+                defaultOpenKeys={['sub2', 'sub1', 'sub3']}
                 style={{ height: '100%', borderRight: 0 }}
               >
                 <SubMenu key="sub1" icon={<UserOutlined />} title="Infrastructure">
@@ -94,9 +94,9 @@ class App extends React.Component {
                   <Menu.Item key="3">Runtime templates<Link to="/Runtime" /></Menu.Item>
                   <Menu.Item key="7">Functions Resource registry<Link to="/ListFunctionResources" /></Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                  <Menu.Item key="9">option9</Menu.Item>
-                  <Menu.Item key="10">option10</Menu.Item>
+                <SubMenu key="sub3" icon={<NotificationOutlined />} title="Topology">
+                  <Menu.Item key="9">Topology Repositories</Menu.Item>
+                  <Menu.Item key="10">Running topologies</Menu.Item>
                   <Menu.Item key="11">option11</Menu.Item>
                   <Menu.Item key="12">option12</Menu.Item>
                 </SubMenu>
