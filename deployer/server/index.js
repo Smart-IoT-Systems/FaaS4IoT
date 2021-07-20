@@ -63,9 +63,9 @@ logger.log('info', 'Engine started!');
  * }
  * to test: {
  *   "id": "fc1",
- *   "ctx": [
+ *   "ctx"[
  *       "/plop2/fillingLevel"
- *   ],
+ *   ]: ,
  *   "runtime": "/deployer/doc/examples/simple-runtime.json",
  *   "src": "/deployer/doc/examples/simple-function.js"
  *}

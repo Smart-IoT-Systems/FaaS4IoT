@@ -77,7 +77,9 @@ class Deploy extends React.Component {
         body.hub = this.state.hubs[this.state.selectedHub];
         body.runtime = this.props.runtimes[this.state.fileListModel].runtime;
         body.functionResource = this.props.ressources[this.state.fileListArchive].path;
-        body.triggers = this.state.trigger;
+        body.triggers = JSON.parse(this.state.trigger);
+
+        console.log(JSON.stringify(body));
 
         fetch('/deploy', {
             method: 'POST',

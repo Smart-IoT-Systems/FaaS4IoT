@@ -46,7 +46,7 @@
             "availability": null,
             "docker_resource": {
                 "name": "1a04e0df-130b-4a52-b9da-5ce8a881f060",
-                "image": "mhart/alpine-node",
+                "image": "node:slim",
                 "command": "",
                 "links": [],
                 "extra_options": "",

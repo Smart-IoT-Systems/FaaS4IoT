@@ -73,7 +73,7 @@ var engine = function () {
 
         if (container_id !== undefined && docker_ip !== undefined && docker_port !== undefined) {
             //We upload the archive in the container
-            conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/");
+            await conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/");
 
             //Register the function in the hub
             that.registerInHub(func);
