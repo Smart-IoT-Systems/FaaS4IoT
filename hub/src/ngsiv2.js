@@ -101,7 +101,7 @@ class NGSIBridge {
     }
 
     async addSubscription(topic) {
-        let endpoint = ip_bridge + "/" + this.fcId;
+        let endpoint = ip_bridge + ":1212/" + this.fcId;
 
         this.express.post('/' + this.fcId, (req, res) => {
             console.log("plop: " + JSON.stringify(req.body.data));
