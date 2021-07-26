@@ -8,6 +8,7 @@ var DockerodeCompose = require('dockerode-compose');
 var temp = require("temp");
 var tar = require("tar");
 const fetch = require('node-fetch');
+var mm_genesis = require('./metamodel-genesis');
 
 var urlGeneSIS = process.env.GENESIS || "http://192.168.1.40";
 var urlOrion = process.env.ORION || "http://192.168.1.43";
@@ -55,32 +56,55 @@ var engine = function () {
 
         // Need to retrieve the id of the newly created container
         let conn_genesis = GeneSIS_Connector(urlGeneSIS + ":8000"); //IP should come from the repository
-        let dm = await conn_genesis.loadFromGeneSISWithoutUI();
+        let rawm = await conn_genesis.loadFromGeneSISWithoutUI();
+        let dm = mm_genesis.deployment_model({});
+
+        // Build the deployment model from the JSON fragments from the
+        // HTTP POST requests.
+        dm.name = rawm.name;
+        dm.revive_components(rawm.components);
+        dm.revive_links(rawm.links);
+        dm.revive_containments(rawm.containments);
+
         let container_id;
         let docker_ip;
         let docker_port;
         let func_command;
         for (let comp of dm.components) {
-            if (comp.function_host != undefined && comp.function_host) {
-                container_id = comp.container_id;
-                func_command = comp.properties[0].function_command;
-            }
-            if (comp._type === "/infra/docker_host") { // This assumes there is only one host in a runtime !
-                docker_ip = comp.ip;
-                docker_port = comp.port[0];
+            if (comp.function_holder != undefined && comp.function_holder) {
+                console.log("here is the place holder!");
+                let host = dm.find_host_one_level_down(comp);
+                for (let compo of rawm.components) {
+                    console.log(JSON.stringify(compo));
+                    console.log(JSON.stringify(host));
+                    if (compo.name === host.name) {
+                        console.log(compo.container_id);
+                        container_id = compo.container_id;
+                    }
+                }
+
+                func_command = host.properties[0].function_command;
+                let infra_host = dm.find_host(comp);
+                docker_ip = infra_host.ip;
+                docker_port = infra_host.port[0];
             }
         }
 
+        console.log(container_id + " " + docker_ip + " " + docker_port);
+
         if (container_id !== undefined && docker_ip !== undefined && docker_port !== undefined) {
             //We upload the archive in the container
+            logger.log('info', "trying to upload: " + archivePath + " on: " + container_id);
             await conn_genesis.uploadArchive({ ip: docker_ip, port: docker_port }, container_id, archivePath, "/");
 
             //Register the function in the hub
-            that.registerInHub(func);
+            await that.registerInHub(func);
 
             // We start it
+            let path_without_extension = f.functionResource.split('.')[0];
+            let path_function = path_without_extension.split('/')[2];
             conn_genesis.executeCommand({ ip: docker_ip, port: docker_port }, container_id, {
-                Cmd: [func_command, f.functionResource + "/main.js"],
+                Cmd: [func_command, path_function + "/main.js"],
                 AttachStdout: true,
                 AttachStderr: true,
                 Tty: true

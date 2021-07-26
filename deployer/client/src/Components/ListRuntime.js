@@ -175,7 +175,7 @@ class ListRuntime extends React.Component {
                                 Support for a single or bulk upload. Strictly prohibit from uploading company data or other
                                 band files
                             </p>
-                        </Dragger>,
+                        </Dragger>
 
                     </Form.Item>
 

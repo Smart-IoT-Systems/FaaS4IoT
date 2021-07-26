@@ -10,7 +10,7 @@ var deployer = require('./src/engine.js');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: './uploads',
+    destination: '/uploads',
     filename: function (req, file, cb) {
         const name = file.originalname.split(' ').join('_');
         cb(null, name);

@@ -1,23 +1,27 @@
 {
-    "dm": {
-        "name": "demo",
-        "components": [{
+    "name": "demo",
+    "components": [
+        {
             "_type": "/infra/docker_host",
             "name": "Host",
             "properties": [],
             "version": "0.0.1",
             "id": "b09b8027-15b9-43c8-995f-347aec7c4e23",
-            "provided_execution_port": [{
-                "name": "c3a22d3a-a6d1-4186-9752-890febaa68e7",
-                "capabilities": {
-                    "_type": "/capability/security_capability",
-                    "name": "a_capability",
-                    "control_id": "",
-                    "description": ""
-                }
-            }],
+            "provided_execution_port": [
+                {
+                    "name": "c3a22d3a-a6d1-4186-9752-890febaa68e7",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    }
+        }
+      ],
             "ip": "192.168.1.40",
-            "port": ["2376"],
+            "port": [
+        "2376"
+      ],
             "credentials": {
                 "username": "ubuntu",
                 "password": "",
@@ -25,24 +29,28 @@
                 "agent": ""
             },
             "monitoring_agent": "none"
-        }, {
+    },
+        {
             "_type": "/internal",
             "name": "nodejs",
-            "properties": [{
-                "function_command": "node"
-            }],
+            "properties": [
+                {
+                    "function_command": "node"
+        }
+      ],
             "version": "0.0.1",
             "id": "94c069f0-11cf-40ae-a854-37cacb0dded4",
-            "function_host": true,
-            "provided_execution_port": [{
-                "name": "74b3de35-6a5e-4060-b3ad-da8fed920551",
-                "capabilities": {
-                    "_type": "/capability/security_capability",
-                    "name": "a_capability",
-                    "control_id": "",
-                    "description": ""
-                }
-            }],
+            "provided_execution_port": [
+                {
+                    "name": "74b3de35-6a5e-4060-b3ad-da8fed920551",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    }
+        }
+      ],
             "availability": null,
             "docker_resource": {
                 "name": "1a04e0df-130b-4a52-b9da-5ce8a881f060",
@@ -95,210 +103,144 @@
                 },
                 "needDeployer": false
             },
-            "provided_communication_port": [{
-                "name": "6642bfdd-dae3-42e2-b2ee-192d9442affb",
+            "provided_communication_port": [
+                {
+                    "name": "6642bfdd-dae3-42e2-b2ee-192d9442affb",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    },
+                    "port_number": "80"
+        }
+      ],
+            "required_communication_port": [
+                {
+                    "name": "a73b7da4-c3b6-4c96-b566-a2bed9012d45",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    },
+                    "port_number": "80",
+                    "isMandatory": false
+        }
+      ]
+    },
+        {
+            "_type": "/internal",
+            "name": "holder",
+            "function_holder": true,
+            "properties": [],
+            "version": "0.0.1",
+            "id": "4ae75289-cf01-4202-a026-dce822184664",
+            "provided_execution_port": [
+                {
+                    "name": "3829c8a8-1fff-4682-b502-d89a54e8e1d6",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    }
+        }
+      ],
+            "availability": null,
+            "docker_resource": {
+                "name": "03288e3f-f0fc-428f-bf3a-d63a6372c062",
+                "image": "ubuntu",
+                "command": "",
+                "links": [],
+                "extra_options": "",
+                "port_bindings": {
+                    "1880": "1880"
+                },
+                "devices": {
+                    "PathOnHost": "",
+                    "PathInContainer": "",
+                    "CgroupPermissions": "rwm"
+                }
+            },
+            "ssh_resource": {
+                "name": "5c09f49e-3fca-4b65-bdde-079b18374ee8",
+                "startCommand": "",
+                "downloadCommand": "",
+                "installCommand": "",
+                "configureCommand": "",
+                "stopCommand": "",
+                "uploadCommand": [],
+                "credentials": {
+                    "username": "ubuntu",
+                    "password": "",
+                    "sshkey": "",
+                    "agent": ""
+                }
+            },
+            "ansible_resource": {
+                "name": "9ebfe04d-af95-4974-beb1-34ad80c79fd3",
+                "playbook_path": "",
+                "playbook_host": "",
+                "credentials": {
+                    "username": "ubuntu",
+                    "password": "",
+                    "sshkey": "",
+                    "agent": ""
+                }
+            },
+            "required_execution_port": {
+                "name": "2b14dccc-5ad3-4448-a902-1fbcb40ac942",
                 "capabilities": {
                     "_type": "/capability/security_capability",
                     "name": "a_capability",
                     "control_id": "",
                     "description": ""
                 },
-                "port_number": "80"
-            }],
-            "required_communication_port": [{
-                "name": "a73b7da4-c3b6-4c96-b566-a2bed9012d45",
-                "capabilities": {
-                    "_type": "/capability/security_capability",
-                    "name": "a_capability",
-                    "control_id": "",
-                    "description": ""
-                },
-                "port_number": "80",
-                "isMandatory": false
-            }]
-        }],
-        "links": [],
-        "containments": [{
+                "needDeployer": false
+            },
+            "provided_communication_port": [
+                {
+                    "name": "8aabbfdc-2d25-43d4-a837-fc87b6c897c0",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    },
+                    "port_number": "80"
+        }
+      ],
+            "required_communication_port": [
+                {
+                    "name": "c784fd10-f2ed-4fb9-b52b-424373f940b5",
+                    "capabilities": {
+                        "_type": "/capability/security_capability",
+                        "name": "a_capability",
+                        "control_id": "",
+                        "description": ""
+                    },
+                    "port_number": "80",
+                    "isMandatory": false
+        }
+      ],
+            "function_host": false
+    }
+  ],
+    "links": [],
+    "containments": [
+        {
             "name": "node_on_host",
             "properties": [],
             "src": "/Host/c3a22d3a-a6d1-4186-9752-890febaa68e7",
             "target": "/nodejs/460f53b6-108f-40af-9d34-b1419028331f"
-        }],
-        "type_registry": []
     },
-    "graph": {
-        "elements": {
-            "nodes": [{
-                "data": {
-                    "id": "Host"
-                },
-                "position": {
-                    "x": 200,
-                    "y": 200
-                },
-                "group": "nodes",
-                "removed": false,
-                "selected": false,
-                "selectable": true,
-                "locked": false,
-                "grabbable": true,
-                "classes": "container host"
-            }, {
-                "data": {
-                    "id": "nodejs",
-                    "parent": "Host"
-                },
-                "position": {
-                    "x": 200,
-                    "y": 200
-                },
-                "group": "nodes",
-                "removed": false,
-                "selected": false,
-                "selectable": true,
-                "locked": false,
-                "grabbable": true,
-                "classes": ""
-            }]
-        },
-        "style": [{
-            "selector": "node",
-            "style": {
-                "label": "data(id)",
-                "background-fit": "contain",
-                "background-image-opacity": "0.3",
-                "text-valign": "center",
-                "text-halign": "center",
-                "font-size": "4px",
-                "font-weight": "bold"
-            }
-        }, {
-            "selector": "node.host",
-            "style": {
-                "text-valign": "top",
-                "text-halign": "center"
-            }
-        }, {
-            "selector": "node.container",
-            "style": {
-                "padding": "10px",
-                "text-valign": "top",
-                "text-halign": "center",
-                "background-color": "#DDD",
-                "font-size": "8px",
-                "font-weight": "normal",
-                "shape": "rectangle",
-                "background-image": "./img/docker-official.svg"
-            }
-        }, {
-            "selector": "edge",
-            "style": {
-                "curve-style": "bezier",
-                "target-arrow-shape": "triangle"
-            }
-        }, {
-            "selector": "edge.control",
-            "style": {
-                "curve-style": "bezier",
-                "target-arrow-shape": "circle"
-            }
-        }, {
-            "selector": "edge.isdeployer",
-            "style": {
-                "curve-style": "bezier",
-                "target-arrow-shape": "triangle-tee"
-            }
-        }, {
-            "selector": ":selected",
-            "style": {
-                "background-color": "black",
-                "line-color": "black",
-                "target-arrow-color": "black",
-                "source-arrow-color": "black"
-            }
-        }, {
-            "selector": "node.questionable",
-            "style": {
-                "border-color": "#A33",
-                "background-color": "#B55",
-                "shape": "roundrectangle"
-            }
-        }, {
-            "selector": "node.node_red",
-            "style": {
-                "background-image": "./img/node-red-256.png"
-            }
-        }, {
-            "selector": "node.ansible",
-            "style": {
-                "background-image": "./img/ansible.png"
-            }
-        }, {
-            "selector": "node.orion",
-            "style": {
-                "background-color": "#ADD8E6",
-                "background-image": "./img/fiware_logo.png"
-            }
-        }, {
-            "selector": "node.thingml",
-            "style": {
-                "background-color": "#ADD8E6",
-                "background-image": "./img/thingml_short.png"
-            }
-        }, {
-            "selector": "node.device",
-            "style": {
-                "padding": "10px",
-                "text-valign": "top",
-                "text-halign": "center",
-                "background-color": "#DDD",
-                "font-size": "8px",
-                "font-weight": "normal",
-                "shape": "rectangle",
-                "background-image": "./img/device.png"
-            }
-        }, {
-            "selector": "node.devicelocal",
-            "style": {
-                "padding": "10px",
-                "text-valign": "top",
-                "text-halign": "center",
-                "background-color": "#FFF",
-                "font-size": "8px",
-                "font-weight": "normal",
-                "shape": "roundrectangle",
-                "border-width": "1px",
-                "border-color": "#333",
-                "border-style": "dashed",
-                "background-image": "./img/devicelocal.png"
-            }
-        }, {
-            "selector": "node.vm",
-            "style": {
-                "padding": "10px",
-                "text-valign": "top",
-                "text-halign": "center",
-                "background-color": "#DDD",
-                "font-size": "8px",
-                "font-weight": "normal",
-                "shape": "rectangle",
-                "background-image": "./img/server_cloud.png"
-            }
-        }],
-        "zoomingEnabled": true,
-        "userZoomingEnabled": true,
-        "zoom": 3.4040818970100126,
-        "minZoom": 0.4,
-        "maxZoom": 6,
-        "panningEnabled": true,
-        "userPanningEnabled": true,
-        "pan": {
-            "x": -46.2327199435331,
-            "y": -339.8817156611433
-        },
-        "boxSelectionEnabled": false,
-        "renderer": {
-            "name": "canvas"
-        }
+        {
+            "name": "func_on_node",
+            "properties": [],
+            "src": "/nodejs/74b3de35-6a5e-4060-b3ad-da8fed920551",
+            "target": "/holder/2b14dccc-5ad3-4448-a902-1fbcb40ac942"
     }
+  ],
+    "type_registry": []
 }

@@ -1,6 +1,6 @@
 const mqtt = require('mqtt');
 
-var clientMQTT = mqtt.connect('mqtt://127.0.0.1');
+var clientMQTT = mqtt.connect('mqtt://host.docker.internal');
 clientMQTT.on('connect', function () {
     console.log('Function connected');
     clientMQTT.subscribe(tpc + "/in");
@@ -17,6 +17,7 @@ clientMQTT.on('message', (topic, message) => {
                 "value": 2222
             }
         };
+        console.log(JSON.stringify(j));
         clientMQTT.publish(tpc + "/out", JSON.stringify(j));
     }
 });
