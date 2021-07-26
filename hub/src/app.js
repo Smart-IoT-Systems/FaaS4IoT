@@ -69,13 +69,14 @@ app.listen(1212, '0.0.0.0', async function () {
      * }
      */
     app.post("/admin", async (req, res) => {
-        logger.log('info', "Function under registration " + req.body);
+        logger.log('info', "Function under registration " + JSON.stringify(req.body));
         let id = req.body.id;
         let ctx = req.body.triggers;
         try {
             b = new bridge(urlOrion, app, ctx, id);
             await b.subscribeAllContexts();
             b.publishData();
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.end("{}");
         } catch (error) {
             logger.log("error", "could not register function " + JSON.stringify(error));

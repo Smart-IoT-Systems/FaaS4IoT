@@ -3,7 +3,7 @@ const mqtt = require('mqtt');
 const logger = require('./logger.js');
 
 
-const ip_bridge = process.env.IP_BRIDGE || "http://192.168.1.41:1212";
+const ip_bridge = process.env.GATEWAY_URL || "http://192.168.1.40:1212";
 
 class NGSIBridge {
 
