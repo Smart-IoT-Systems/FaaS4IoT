@@ -6,7 +6,7 @@ clientMQTT.on('connect', function () {
     clientMQTT.subscribe(tpc + "/in");
 });
 
-var tpc = "/fc1";
+var tpc = "/fc1"; // TO BE updated with the proper name of the function
 
 clientMQTT.on('message', (topic, message) => {
     let mesg = message.toString();
