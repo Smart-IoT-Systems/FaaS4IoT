@@ -43,3 +43,27 @@ $ docker-compose up -d
 4. The hub can be configured at `http://<ip>:1212/admin`
 
 
+## Reminders
+To register a device in Fiware:
+```console
+POST /v2/entities
+{
+    "id": "fc1",
+    "triggers": [
+        "/plop2/fillingLevel"
+    ],
+    "runtime": "/deployer/doc/examples/simple-runtime.json",
+    "src": "/deployer/doc/examples/simple-function"
+}
+````
+
+To update a property of a Fiware entity:
+```console
+POST /v2/entities
+{
+    "id": "plop2",
+    "fillingLevel": {
+        "value": 17
+    }
+}
+```

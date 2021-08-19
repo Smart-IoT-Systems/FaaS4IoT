@@ -3,7 +3,6 @@ const express = require('express');
 const logger = require('./logger.js');
 const bodyParser = require('body-parser');
 var uuidv4 = require('uuid/v4');
-var ip = require('ip');
 
 const app = express();
 var b;
