@@ -1,17 +1,17 @@
 import json
 
 
-def format_data(dataToFormat):
+def format_dataCSV_toNGSI(dataToFormat):
 	#x = dataToFormat.split()
     entityId=""
     entityType=""
     datatype=""
     datavalue=""
     jsondata=""
-    entityId = dataToFormat.split()[0]
-    entityType = dataToFormat.split()[1]
-    datatype= dataToFormat.split()[2]
-    datavalue = dataToFormat.split()[3]
+    entityId = dataToFormat.split(',')[0]
+    entityType = dataToFormat.split(',')[1]
+    datatype= dataToFormat.split(',')[2]
+    datavalue = dataToFormat.split(',')[3]
     jsondata =json.dumps({
                 "contextElements": [
                     {
@@ -29,5 +29,4 @@ def format_data(dataToFormat):
                             ]
                     }
                 ]})
-    #print("here is json data in method 3",jsondata)
     return jsondata
