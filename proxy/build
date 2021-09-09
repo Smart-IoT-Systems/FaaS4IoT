@@ -1,0 +1,3 @@
+mkdir proxy
+export PYTHONPATH=$PYTHONPATH:/proxy
+docker build -t "proxy-faas4iot" .
