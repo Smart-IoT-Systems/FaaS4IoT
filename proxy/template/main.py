@@ -1,11 +1,11 @@
-import communication_device
-import data_structure
-import data_transfer
+import serial_comm
+import CSV_to_NGSI
+import mqtt_transfer
 
 #Change these variables according to your environment
 host_name = "192.168.43.247"
 broker_port = 1883
-port_serial = "COM8"
+port_serial = "/dev/ttyACM0"
 baudrate = 9600
 topic="serial/temp"
 
