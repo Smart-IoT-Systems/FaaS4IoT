@@ -1,5 +1,4 @@
-#!/bin/sh
-START export PYTHONPATH=$PYTHONPATH:/proxy/libraries/Communication
-START export PYTHONPATH=$PYTHONPATH:/proxy/libraries/data_structure
-START export PYTHONPATH=$PYTHONPATH:/proxy/libraries/data_transfer
-START docker build -t "proxy-faas4iot" .
+#!/bin/bash
+export PYTHONPATH=$PYTHONPATH:"$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/libraries/Communication
+export PYTHONPATH=$PYTHONPATH:"$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/libraries/data_structure
+export PYTHONPATH=$PYTHONPATH:"$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"/libraries/data_transfer
