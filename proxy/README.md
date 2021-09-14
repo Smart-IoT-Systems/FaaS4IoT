@@ -1,6 +1,8 @@
 # Proxy
 
 Proxy is a software component that have the responsibility of linking the Edge and IoT spaces together and managing the data structure to send it to the broker in Cloud.
+
+
 ![image](https://user-images.githubusercontent.com/47181226/133210155-e70d877c-3a94-4f43-9084-f4f5ec7bf355.png)
 
 
