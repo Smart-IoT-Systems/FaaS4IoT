@@ -1,9 +1,8 @@
 # Proxy libraries
 Proxy component of FaaS4IoT provides libraries in order to ease the work of the developers.
 The libraries available are:
-Communication:
-Data Structure:
-Data Transfert:
-## Install libraries
-Please execute this command if you are on Windows environment:
-$env:PYTHONPATH += ";C:\Users\FaaS4IoT\proxy\libraries"
+- Communication: is a library who ensures communication with the IoT devices based on different protocols. 
+- Data Structure: is a library responsible for converting the data to standard data in order to communicate with the Cloud. 
+- Data Transfert: is a library responsible for sending the data to the Cloud. 
+
+
