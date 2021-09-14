@@ -4,7 +4,8 @@ WORKDIR /proxy
 
 COPY . .
 
-RUN chmod 777 /build.sh
-RUN bash "./build.sh"
-
+ADD template/main.py /proxy
+ADD build.sh /proxy
+RUN chmod +x ./build.sh
+RUN sh build.sh
 CMD ["python", "./main.py"]
