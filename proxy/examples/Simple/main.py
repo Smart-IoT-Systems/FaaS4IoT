@@ -1,5 +1,4 @@
 import communication_device
-import data_structure
 import data_transfer
 
 #Change these variables according to your environment
