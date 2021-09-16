@@ -2,10 +2,11 @@ FROM python:3.7-slim
 
 WORKDIR /proxy
 
-COPY . .
-
 ADD template/main.py /proxy
-ADD build.sh /proxy
-RUN chmod +x ./build.sh
-RUN sh build.sh
+ADD ./libraries /proxy
+
+ENV PYTHONPATH=$PYTHONPATH:"/proxy/libraries/Communication"
+ENV PYTHONPATH=$PYTHONPATH:"/proxy/libraries/Communication"
+ENV PYTHONPATH=$PYTHONPATH:"/proxy/libraries/Communication"
+
 CMD ["python", "./main.py"]
