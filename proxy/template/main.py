@@ -9,7 +9,7 @@ port_serial = "COM8"
 baudrate = 9600
 topic="serial/temp"
 
-client=data_transfer.configConnection(host_name,broker_port)
+client=mqtt_transfer.configConnection(host_name,broker_port)
 while True:
 	serial_comm.serialcommunication(port_serial,baudrate)
 	serial_data = serial_comm.serialcommunication(port_serial,baudrate)
