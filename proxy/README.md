@@ -32,6 +32,8 @@ The structure of Proxy component is as follows:
   
  ![image](https://user-images.githubusercontent.com/47181226/133210017-e5925563-66b1-4c4e-aa14-8eab1570bcd1.png)
  
+ You can find ther available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
+ 
 ## Policies 
 Proxy is a generic FaaS4IoT component, easy to use but also, it allows the developer to customize it as desired.  
 Proxy offers different policies for configuration:  
@@ -39,4 +41,6 @@ Proxy offers different policies for configuration:
   -	Simple Proxy: used when we are receiving NGSI-based data from devices. 
   -	Registered Proxy: used when the device and its entities are registered on the Orion broker at Cloud. 
   -	Unregistered Proxy: used when the device and its entities are not registered on the Orion broker at Cloud. 
+  
+We are offerning some examples using different policies of proxy [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/examples)
 
