@@ -13,6 +13,14 @@ Proxy is a software component that have the responsibility of linking the Edge a
 
 
 ![image](https://user-images.githubusercontent.com/47181226/133210155-e70d877c-3a94-4f43-9084-f4f5ec7bf355.png)
+-	FaaS4IoT GUI and IDE: is an interface allowing developers to develop their own functions desired to be deployed on the Edge and IoT devices. 
+-	FaaS4IoT: is responsible for deploying functions on GeneSIS component and giving it the order to deploy these functions on the Edge. 
+-	Broker: currently the broker installed on the FaaS4IoT system is Orion broker, which allows to manage the entire lifecycle of context information including updates, queries, registrations, and subscriptions. 
+-	GeneSIS: is responsible for deploying functions on the Edge by getting the order from the FaaS4IoT component on the Cloud. 
+-	Bridge to broker: connects the broker installed on the Edge to the broker on the Cloud. 
+-	MQTT broker: responsible for receiving all the data and events to send to all the subscribed clients. 
+-	Proxy: is the link between Edge and IoT devices. 
+
 
 
 ## Structure
