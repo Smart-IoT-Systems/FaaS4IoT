@@ -1,5 +1,12 @@
-# Proxy
+# FaaS4IoT 
+Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not extended its features yet to support the IoT space. 
+The platform offers developers the ability to create functions on the GUI and IDE of FaaS4IoT. Once functions are created, it will be registered on the Orion broker of the Cloud. Second, the deployment of functions will be set on gateway with docker containers sent through the bridge to broker installed in the gateway thanks to the GeneSIS component. Third, functions on the gateway can publish and subscribe via the MQTT broker. The information on the MQTT broker will also be sent to the Orion broker to the Cloud.  Finally, not developers can orchestrate data, but also, can consult the functions and entities registered on the Cloud broker via the FaaS4IoT GUI.
+Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not extended its features yet to support the IoT space. 
+![image](https://user-images.githubusercontent.com/47181226/133777251-cf1a183a-f101-4ebe-957e-083044baf832.png)
 
+
+# Proxy
+In order to extend FaaS4IoT to IoT space, we need a component that will ensure the communication with the IoT devices, for that, we thought about adding a software component named Proxy.
 Proxy is a software component that have the responsibility of linking the Edge and IoT spaces together and managing the data structure to send it to the broker in Cloud.
 
 
