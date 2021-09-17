@@ -1,4 +1,11 @@
-# FaaS4IoT 
+# Content
+-[Design system]
+-[Proxy]
+-[Proxy structure]
+-[Proxy policies]
+-[Get Started]
+
+# Design system
 Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not extended its features yet to support the IoT space. 
 The platform offers developers the ability to create functions on the GUI and IDE of FaaS4IoT. Once functions are created, it will be registered on the Orion broker of the Cloud. Second, the deployment of functions will be set on gateway with docker containers sent through the bridge to broker installed in the gateway thanks to the GeneSIS component. Third, functions on the gateway can publish and subscribe via the MQTT broker. The information on the MQTT broker will also be sent to the Orion broker to the Cloud.  Finally, not developers can orchestrate data, but also, can consult the functions and entities registered on the Cloud broker via the FaaS4IoT GUI.
 Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not extended its features yet to support the IoT space. 
@@ -7,7 +14,7 @@ Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not exte
 ![image](https://user-images.githubusercontent.com/47181226/133777251-cf1a183a-f101-4ebe-957e-083044baf832.png)
 
 
-# Proxy
+## Proxy
 In order to extend FaaS4IoT to IoT space, we need a component that will ensure the communication with the IoT devices, for that, we thought about adding a software component named Proxy.
 Proxy is a software component that have the responsibility of linking the Edge and IoT spaces together and managing the data structure to send it to the broker in Cloud.
 
@@ -32,7 +39,7 @@ The structure of Proxy component is as follows:
   
  ![image](https://user-images.githubusercontent.com/47181226/133210017-e5925563-66b1-4c4e-aa14-8eab1570bcd1.png)
  
- You can find ther available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
+ You can find the available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
  
 ## Policies 
 Proxy is a generic FaaS4IoT component, easy to use but also, it allows the developer to customize it as desired.  
@@ -43,4 +50,6 @@ Proxy offers different policies for configuration:
   -	Unregistered Proxy: used when the device and its entities are not registered on the Orion broker at Cloud. 
   
 We are offerning some examples using different policies of proxy [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/examples)
+
+#Get Started
 
