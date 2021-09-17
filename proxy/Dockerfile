@@ -3,7 +3,10 @@ FROM python:3.7-slim
 WORKDIR /proxy
 
 ADD template/main.py /proxy
-ADD ./libraries /proxy
+ADD libraries/Communication /proxy
+ADD libraries/data_transfer /proxy
+ADD libraries/data_structure /proxy
+
 ADD requirements.txt  /proxy
 
 RUN pip install -r requirements.txt
