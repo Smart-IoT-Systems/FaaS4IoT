@@ -11,8 +11,8 @@ ADD requirements.txt  /proxy
 
 RUN pip install -r requirements.txt
 
-ENV $env:PYTHONPATH += ";~/Desktop/FaaS4IoT/proxy/libraries/Communication"
-ENV $env:PYTHONPATH += ";~/Desktop/FaaS4IoT/proxy/libraries/data_structure"
-ENV $env:PYTHONPATH += ";~/Desktop/FaaS4IoT/proxy/libraries/data_transfer"
+ENV $env:PYTHONPATH += ";/proxy/libraries/Communication"
+ENV $env:PYTHONPATH += ";/proxy/libraries/data_structure"
+ENV $env:PYTHONPATH += ";/proxy/libraries/data_transfer"
 
 CMD ["python", "./main.py"]
