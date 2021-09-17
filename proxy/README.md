@@ -1,8 +1,12 @@
 # Content
 -[Design system](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#design-system)
+
 -[Proxy](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy)
+
 -[Proxy structure](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy-structure)
+
 -[Proxy policies](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy-policies)
+
 -[Get Started](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#get-started)
 
 # Design system
@@ -30,7 +34,7 @@ Proxy is a software component that have the responsibility of linking the Edge a
 
 
 
-## Structure
+## Proxy structure
 The structure of Proxy component is as follows: 	
   - Communication: is a library who ensures communication with the IoT devices based on different communication protocols. 
   -	User Code: developers can create their own logic in the proxy for data processing. 
@@ -41,7 +45,7 @@ The structure of Proxy component is as follows:
  
  You can find the available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
  
-## Policies 
+## Proxy policies 
 Proxy is a generic FaaS4IoT component, easy to use but also, it allows the developer to customize it as desired.  
 Proxy offers different policies for configuration:  
   -	Standardized Proxy: used when we are receiving data from devices that are not standardized as NGSI-based data (i.e., We are using standardized NGSI data on FaaS4IoT system as we are working with Orion broker). 
@@ -51,5 +55,9 @@ Proxy offers different policies for configuration:
   
 We are offerning some examples using different policies of proxy [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/examples)
 
-#Get Started
+# Get Started
+- Upload the FaaS4IoT project using git clone
+- Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment.
+- Run the build file
+
 
