@@ -1,9 +1,9 @@
 # Content
--[Design system]
--[Proxy]
--[Proxy structure]
--[Proxy policies]
--[Get Started]
+-[Design system](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#design-system)
+-[Proxy](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy)
+-[Proxy structure](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy-structure)
+-[Proxy policies](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#proxy-policies)
+-[Get Started](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy#get-started)
 
 # Design system
 Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not extended its features yet to support the IoT space. 
