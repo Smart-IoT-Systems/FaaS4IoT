@@ -60,7 +60,7 @@ We are offerning some examples using different policies of proxy [here](https://
     
 		git clone https://github.com/Smart-IoT-Systems/FaaS4IoT.git
 
-- Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment. You can find more details [here]((https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template).
+- Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment. You can find more details [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template).
 - Enter to the directory of FaaS4IoT project and get to the proxy's directory then run the build scprit
     
 		./build.sh
