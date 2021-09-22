@@ -1,6 +1,7 @@
 # Template for proxy component
 
 This template allows you to use the proxy as desired.
+
 In order to use the: libraries provided by FaaS4IoT use import as following
 ```python
 import serial_comm
