@@ -57,6 +57,7 @@ We are offerning some examples using different policies of proxy [here](https://
 
 # Get Started
 - Upload the FaaS4IoT project using git clone
+  git remote add origin {{the link you just copied}}
 - Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment.
 - Run the build file
 
