@@ -30,6 +30,7 @@ The requirements identified are:
 
 ![image](https://user-images.githubusercontent.com/47181226/133210155-e70d877c-3a94-4f43-9084-f4f5ec7bf355.png)
 
+
 So the system design components are as following:
 -	FaaS4IoT GUI and IDE: is an interface allowing developers to develop their own functions desired to be deployed on the Edge and IoT devices. 
 -	FaaS4IoT: is responsible for deploying functions on GeneSIS component and giving it the order to deploy these functions on the Edge. 
@@ -47,7 +48,11 @@ The main components that form a Proxy are:
 - User Code: developers can create their own logic in the proxy for data processing (e.g., we need to transform and aggregate data published in CSV format by two devices into a new data structure. The developer can create its mapping and aggregation of data within the Proxy before sending it to Cloud broker).
 - Data Structure: is a library responsible for converting the data to standard data to communicate with the Cloud (e.g., currently FaaS4IoT Cloud broker is Orion, in order to  communicate with it we need NGSI-based data. For that, users who do not use NGSI-based data can leverage the library of data structure to represent their data and send it to Cloud broker).
 - Data Transfer: is a library responsible for sending the data to the Cloud (e.g., an event occurred within the temperature sensor, the value exceeded the limits and the state of the device has changed. We need to send this information to the Cloud, so users can leverage aData Transfer library to satisfy this need)
+
+
  ![image](https://user-images.githubusercontent.com/47181226/133210017-e5925563-66b1-4c4e-aa14-8eab1570bcd1.png)
+ 
+ 
 Overall, the following process is applied. First, devices send or receive data via the Communication library using the desired protocol. Second, the data will be processed in the User Code section where developers customize their data processing as desired. Third, users can exploit the Data Structure library to transform it into a standardized data and then process it. Finally, the data will be sent to the platform. In the context of FaaS4IoT it is sent to a MQTT broker where finally it will get to a broker on the Cloud.
 You can find the available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
  
