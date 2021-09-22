@@ -58,9 +58,18 @@ We are offerning some examples using different policies of proxy [here](https://
 # Get Started
 - Upload the FaaS4IoT project using git clone	
     
-		git remote add origin {{the link you just copied}}
+		git clone https://github.com/Smart-IoT-Systems/FaaS4IoT.git
 
-- Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment.
-- Run the build file
+- Use the template and change the variables in the script [main.py](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template/main.py) according to your environment. You can find more details [here]((https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/template).
+- Enter to the directory of FaaS4IoT project and get to the proxy's directory then run the build scprit
+    
+		./build.sh
+- Run the docker container 
+    
+		docker run proxy-faas4iot
+- If you are using serial devices, you should give the docker container access to the serial port (for example our serial port is: /dev/ttyACM0) as following:
+    
+		docker run --device=/dev/ttyACM0:rw -it proxy-faas4iot
+
 
 
