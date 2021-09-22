@@ -21,6 +21,11 @@ Currently, FaaS4IoT platform supports the Cloud-Edge space only. It has not exte
 ## Proxy
 In order to extend FaaS4IoT to IoT space, we need a component that will ensure the communication with the IoT devices, for that, we thought about adding a software component named Proxy.
 Proxy is a software component that have the responsibility of linking the Edge and IoT spaces together and managing the data structure to send it to the broker in Cloud.
+A proxy component is responsible for the communication with IoT devices. Before getting to detail the structure of this component we need to present the requirements that led to its design.
+The requirements identified are:
+- Communication with IoT devices: IoT devices are present in an heterogenous environment running on different protocols. We need to make it possible for the Proxy to communicate with these devices with different communication protocols especially the ones that does not support Internet connection such as Serial or Bluetooth.
+- Communication with the broker on Cloud: In order to communicate with the Cloud broker, we need to satisfy two needs. First, we need to convert the data received to standardized data accepted by the broker. Second, we need to transfer the converted data to the Cloud broker.
+- Flexibility: Developers may need to write their own logic in the proxy to satisfy their needs. For that reason, we need a flexible and easy to use component.
 
 
 ![image](https://user-images.githubusercontent.com/47181226/133210155-e70d877c-3a94-4f43-9084-f4f5ec7bf355.png)
@@ -35,15 +40,14 @@ Proxy is a software component that have the responsibility of linking the Edge a
 
 
 ## Proxy structure
-The structure of Proxy component is as follows: 	
-  - Communication: is a library who ensures communication with the IoT devices based on different communication protocols. 
-  -	User Code: developers can create their own logic in the proxy for data processing. 
-  -	Data Structure: is a library responsible for converting the data to standard data to communicate with the Cloud. 
-  -	Data Transfer: is a library responsible for sending the data to the Cloud. 
-  
+The main components that form a Proxy are:
+- Communication: is a library who ensures communication with the IoT devices based on different protocols (e.g., we need to get temperature value from a sensor connected to an Arduino Uno which uses the Serial protocol for communication, for that, the user can leverage the library for Serial communication from the Proxy’s communication library to  communicate between IoT device and Edge).
+- User Code: developers can create their own logic in the proxy for data processing (e.g., we need to transform and aggregate data published in CSV format by two devices into a new data structure. The developer can create its mapping and aggregation of data within the Proxy before sending it to Cloud broker).
+- Data Structure: is a library responsible for converting the data to standard data to communicate with the Cloud (e.g., currently FaaS4IoT Cloud broker is Orion, in order to  communicate with it we need NGSI-based data. For that, users who do not use NGSI-based data can leverage the library of data structure to represent their data and send it to Cloud broker).
+- Data Transfer: is a library responsible for sending the data to the Cloud (e.g., an event occurred within the temperature sensor, the value exceeded the limits and the state of the device has changed. We need to send this information to the Cloud, so users can leverage aData Transfer library to satisfy this need)
  ![image](https://user-images.githubusercontent.com/47181226/133210017-e5925563-66b1-4c4e-aa14-8eab1570bcd1.png)
- 
- You can find the available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
+Overall, the following process is applied. First, devices send or receive data via the Communication library using the desired protocol. Second, the data will be processed in the User Code section where developers customize their data processing as desired. Third, users can exploit the Data Structure library to transform it into a standardized data and then process it. Finally, the data will be sent to the platform. In the context of FaaS4IoT it is sent to a MQTT broker where finally it will get to a broker on the Cloud.
+You can find the available libraries [here](https://github.com/Smart-IoT-Systems/FaaS4IoT/tree/main/proxy/libraries)
  
 ## Proxy policies 
 Proxy is a generic FaaS4IoT component, easy to use but also, it allows the developer to customize it as desired.  
