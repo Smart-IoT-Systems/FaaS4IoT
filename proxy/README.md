@@ -29,6 +29,7 @@ The requirements identified are:
 
 
 ![image](https://user-images.githubusercontent.com/47181226/133210155-e70d877c-3a94-4f43-9084-f4f5ec7bf355.png)
+
 So the system design components are as following:
 -	FaaS4IoT GUI and IDE: is an interface allowing developers to develop their own functions desired to be deployed on the Edge and IoT devices. 
 -	FaaS4IoT: is responsible for deploying functions on GeneSIS component and giving it the order to deploy these functions on the Edge. 
