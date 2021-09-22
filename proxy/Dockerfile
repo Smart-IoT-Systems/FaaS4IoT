@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM python:3.8-slim-buster
 
 WORKDIR /proxy
 
@@ -11,8 +11,4 @@ ADD requirements.txt  /proxy
 
 RUN pip install -r requirements.txt
 
-ENV $env:PYTHONPATH += ";/proxy/libraries/Communication"
-ENV $env:PYTHONPATH += ";/proxy/libraries/data_structure"
-ENV $env:PYTHONPATH += ";/proxy/libraries/data_transfer"
-
-CMD ["python", "./main.py"]
+CMD ["python3", "./main.py"]
