@@ -20,6 +20,6 @@ Second, install the proxy using docker by executing the build script
   
     ./build
     
-Then Run the docker container.
+Then Run the docker container and specify the port you will use and give it permission (e.g., serial port=/dev/ttyACM0).
   
     docker run --device=/dev/ttyACM0:rw -it simple-example-proxy
