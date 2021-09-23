@@ -5,7 +5,7 @@ This is an example of how to use a simple configuration of Proxy where we are se
 The infrastructure used in this example is as following: 
 - IoT device : Arduino Uno with an TFT shield with joystick
 
-![image](https://user-images.githubusercontent.com/47181226/134436124-395e29a7-dd3a-4503-a9ec-1a9c372b6c6a.png |width=250 height=250)
+![image](https://user-images.githubusercontent.com/47181226/134436124-395e29a7-dd3a-4503-a9ec-1a9c372b6c6a.png){:height="50%" width="50%"}
 
 - Edge device : Raspberry pi 3 with Raspbian OS
 
