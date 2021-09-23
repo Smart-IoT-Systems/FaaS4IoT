@@ -15,10 +15,11 @@ The infrastructure used in this example is as following:
 - Broker: MQTT (mosquitto)
 
 ### Get started
-First, you can upload our example of Arduino [code](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/examples/Simple/arduino_joystick.ino) to your Arduino device with TFT shield with joystick using the Arduino IDE or you can use your own piece of code and device with condition of using NGSI data.
+First, you can upload our example of Arduino [code](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/examples/standardized/arduino_csv_data.ino) to your Arduino device with TFT shield with joystick using the Arduino IDE or you can use your own piece of code and device.
 Second, install the proxy using docker by executing the build script 
   
     ./build
+    
 Then Run the docker container.
   
     docker run --device=/dev/ttyACM0:rw -it simple-example-proxy
