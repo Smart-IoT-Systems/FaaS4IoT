@@ -9,7 +9,7 @@ The infrastructure used in this example is as following:
 
 - Edge device : Raspberry pi 3 with Raspbian OS
 
-![image](https://user-images.githubusercontent.com/47181226/134436426-b6a3a015-7f1b-4ac9-baf3-ca26b4faebca.png =250x250)
+![image](https://user-images.githubusercontent.com/47181226/134436426-b6a3a015-7f1b-4ac9-baf3-ca26b4faebca.png)
 
 - Broker: MQTT (mosquitto)
 ### Get started
