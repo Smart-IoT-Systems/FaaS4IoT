@@ -1,2 +1,2 @@
 #!/bin/bash
-START docker build -t "standardized-example-proxy" .
+docker build -t "standardized-example-proxy" .
