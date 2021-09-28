@@ -1,4 +1,5 @@
 // declare three Strings:
+// this is dummy code we are not using any sensors here
 
 String stringOne, stringTwo, stringThree;
 
