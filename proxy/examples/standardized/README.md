@@ -7,7 +7,11 @@ The infrastructure is as following:
 - Broker : MQTT
 
 ### Get started
-First, you can upload our example of Arduino [code](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/examples/standardized/arduino_csv_data.ino) to your Arduino device using the Arduino IDE or you can use your own piece of code.
+First, you can upload our example of Arduino [code](https://github.com/Smart-IoT-Systems/FaaS4IoT/blob/main/proxy/examples/standardized/arduino_csv_data.ino) to your Arduino device using the Arduino IDE or you can use your own piece of code but with the condition of using CSV format for data.
+CSV (comma separated values) is a simple format in which each field is separated by a comma. In the standardized proxy you should follow the following format for data:
+Device<id>, TypeOfDevice, TypeOfData, ValueOfData
+
+
 Second, install the proxy using docker by executing the build script 
   
     ./build
