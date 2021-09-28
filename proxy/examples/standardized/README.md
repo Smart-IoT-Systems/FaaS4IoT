@@ -11,7 +11,7 @@ First, you can upload our example of Arduino [code](https://github.com/Smart-IoT
 
 CSV (comma separated values) is a simple format in which each field is separated by a comma. In the standardized proxy you should follow the following format for data:
 
-- Device<<ID>>, TypeOfDevice, TypeOfData, ValueOfData
+- Device<<"ID">>, TypeOfDevice, TypeOfData, ValueOfData
 
 
 Second, install the proxy using docker by executing the build script 
