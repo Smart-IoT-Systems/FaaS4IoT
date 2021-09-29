@@ -3,9 +3,9 @@ FROM python:3.8-slim-buster
 WORKDIR /standardizedProxy
 
 ADD main.py /standardizedProxy
-ADD FaaS4IoT/proxy/libraries/Communication /standardizedProxy
-ADD FaaS4IoT/proxy/ libraries/data_transfer /standardizedProxy
-ADD FaaS4IoT/proxy/libraries/data_structure /standardizedProxy
+ADD libraries/communication /standardizedProxy
+ADD libraries/data_transfer /standardizedProxy
+ADD libraries/data_structure /standardizedProxy
 
 ADD requirements.txt  /standardizedProxy
 
