@@ -1,3 +1,2 @@
 #!/bin/bash
-
-docker build -t "proxy-faas4iot"  .
+docker build -t "proxy-faas4iot" .
