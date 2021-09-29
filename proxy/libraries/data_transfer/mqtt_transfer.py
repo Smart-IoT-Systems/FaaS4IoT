@@ -6,7 +6,7 @@ def on_connect(client, userdata, flags, rc):
 def publish(client,topic,dataToPublish):
 	#client = mqtt.Client()
 	client.publish(topic,dataToPublish,0)
-	print("here we are in publish method",dataToPublish)
+	#print("here we are in publish method",dataToPublish)
 
 def configConnection(host_name,broker_port):
 	client = mqtt.Client()
