@@ -3,7 +3,7 @@ FROM python:3.8-slim-buster
 WORKDIR /proxy
 
 ADD template/main.py /proxy
-ADD libraries/Communication /proxy
+ADD libraries/communication /proxy
 ADD libraries/data_transfer /proxy
 ADD libraries/data_structure /proxy
 
